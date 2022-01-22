@@ -1,0 +1,6 @@
+tensorflow
+pytorch
+sklearn
+tqdm
+matplotlib
+python-telegram-bot
