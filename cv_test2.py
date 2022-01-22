@@ -1,19 +1,32 @@
 # python cv_test2.py --modeldir=model2     
 # Import packages
 import os
+import sysconfig
 import argparse
-import cv2
-import numpy as np
 import sys
 import time
+
 from threading import Thread
+import cv2
+import numpy as np
 import importlib.util
 import telegram
 from PIL import Image
 
-botToken = ""
+
+if sysconfig.get_platform() == "linux-armv7l":
+    botToken = open(os.path.join("..","Documents", "Confidental", "botToken"), mode = "r").read()
+    chat_id = open(os.path.join("..", "Documents", "Confidental", "chat_id"), mode = "r").read()
+else:
+    try:
+        botToken = open(os.path.join("..", "Confidental", "botToken"), mode = "r").read()
+        chat_id = open(os.path.join("..", "Confidental", "chat_id"), mode = "r").read()
+    except:
+        print("botToken or chat_id are not in the Confidental Directory!")
+        exit()
+
+
 bot = telegram.Bot(token=botToken)
-chat_id = ""
 
 # Define VideoStream class to handle streaming of video from webcam in separate processing thread
 # Source - Adrian Rosebrock, PyImageSearch: https://www.pyimagesearch.com/2015/12/28/increasing-raspberry-pi-fps-with-python-and-opencv/
@@ -225,7 +238,7 @@ while True:
     cv2.putText(frame,'FPS: {0:.2f}'.format(frame_rate_calc),(30,50),cv2.FONT_HERSHEY_SIMPLEX,1,(255,255,0),2,cv2.LINE_AA)
 
     # All the results have been drawn on the frame, so it's time to display it.
-    cv2.imshow('Object detector', frame)
+    #cv2.imshow('Object detector', frame)
 
     # Calculate framerate
     t2 = cv2.getTickCount()
