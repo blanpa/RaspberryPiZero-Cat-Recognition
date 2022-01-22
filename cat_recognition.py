@@ -16,8 +16,8 @@ from PIL import Image
 # Get the Telegram API Tokens which stored safe outside the repo
 try:
     if sysconfig.get_platform() == "linux-armv7l":
-        botToken = open(os.path.join("home", "pi","Documents", "Confidental", "botToken.txt"), mode = "r").read()
-        chat_id = open(os.path.join("home", "pi", "Documents", "Confidental", "chat_id.txt"), mode = "r").read()
+        botToken = open(os.path.join("/home", "pi","Documents", "Confidental", "botToken.txt"), mode = "r").read()
+        chat_id = open(os.path.join("/home", "pi", "Documents", "Confidental", "chat_id.txt"), mode = "r").read()
     else:
         botToken = open(os.path.join("..", "Confidental", "botToken.txt"), mode = "r").read()
         chat_id = open(os.path.join("..", "Confidental", "chat_id.txt"), mode = "r").read()
