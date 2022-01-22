@@ -21,6 +21,8 @@ try:
     else:
         botToken = open(os.path.join("..", "Confidental", "botToken.txt"), mode = "r").read()
         chat_id = open(os.path.join("..", "Confidental", "chat_id.txt"), mode = "r").read()
+        
+    print(os.path.join("home", "pi","Documents", "Confidental"))
     print("Got the right Telegram Tokens")
 except:
     print("botToken or chat_id are not in the Confidental Directory!")
