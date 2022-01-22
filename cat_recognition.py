@@ -1,4 +1,4 @@
-# python cat_recognition.py --modeldir=model     
+# python3 cat_recognition.py --modeldir=model     
 # Import packages
 import os
 import sysconfig
@@ -11,19 +11,20 @@ import cv2
 import numpy as np
 import importlib.util
 import telegram
-from PIL import Image
+from PIL import Image 
 
 # Get the Telegram API Tokens which stored safe outside the repo
-if sysconfig.get_platform() == "linux-armv7l":
-    botToken = open(os.path.join("..","Documents", "Confidental", "botToken"), mode = "r").read()
-    chat_id = open(os.path.join("..", "Documents", "Confidental", "chat_id"), mode = "r").read()
-else:
-    try:
-        botToken = open(os.path.join("..", "Confidental", "botToken"), mode = "r").read()
-        chat_id = open(os.path.join("..", "Confidental", "chat_id"), mode = "r").read()
-    except:
-        print("botToken or chat_id are not in the Confidental Directory!")
-        exit()
+try:
+    if sysconfig.get_platform() == "linux-armv7l":
+        botToken = open(os.path.join("..","Documents", "Confidental", "botToken.txt"), mode = "r").read()
+        chat_id = open(os.path.join("..", "Documents", "Confidental", "chat_id.txt"), mode = "r").read()
+    else:
+        botToken = open(os.path.join("..", "Confidental", "botToken.txt"), mode = "r").read()
+        chat_id = open(os.path.join("..", "Confidental", "chat_id.txt"), mode = "r").read()
+    print("Got the right Telegram Tokens")
+except:
+    print("botToken or chat_id are not in the Confidental Directory!")
+    exit()
 
 # Boolean which define if a cv2 display window will open
 use_window = False
