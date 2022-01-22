@@ -1,0 +1,4 @@
+tqdm
+matplotlib
+python-telegram-bot
+sudo apt install python3-opencv
