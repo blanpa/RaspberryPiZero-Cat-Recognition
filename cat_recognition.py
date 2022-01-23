@@ -5,6 +5,7 @@ import sysconfig
 import argparse
 import sys
 import time
+import logging
 
 from threading import Thread
 import cv2
@@ -27,6 +28,9 @@ except:
     print(os.path.join("home", "pi","Documents", "Confidental"))
     print("botToken or chat_id are not in the Confidental Directory!")
     exit()
+
+logging.basicConfig(filename='logs.log', filemode='w', level=logging.DEBUG) 
+
 
 # Boolean which define if a cv2 display window will open
 use_window = False
@@ -230,8 +234,10 @@ try:
                 cv2.circle(frame, (xcenter, ycenter), 5, (0,0,255), thickness=-1)
 
                 # Print info
-                print('Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')')
-
+                logs = 'Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')'
+                logging.debug(logs)
+                print(logs)
+                
                 # Code für Telegrambot
                 if object_name == "cat":
                     bot.send_photo(chat_id=chat_id, caption= f'Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')', photo=cv2.imencode('.jpg', frame)[1].tostring())

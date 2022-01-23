@@ -5,7 +5,5 @@ https://drive.google.com/file/d/1mW8QGmhfk4kRYXqUTEH1ckPUNIsl7S3d/view?usp=shari
 
 # pip3 install tflite_runtime-2.3.1-cp37-cp37m-linux_armv6l.whl
 
-
-
 https://www.tensorflow.org/lite/guide/python
 https://yoursunny.com/t/2018/install-OpenCV3-PiZero/
