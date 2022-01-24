@@ -5,8 +5,8 @@ import sysconfig
 import argparse
 import sys
 import time
+from datetime import datetime
 import logging
-
 from threading import Thread
 import cv2
 import numpy as np
@@ -29,12 +29,13 @@ except:
     print("botToken or chat_id are not in the Confidental Directory!")
     exit()
 
+# Set Logging
 logging.basicConfig(filename='logs.log', filemode='w', level=logging.DEBUG) 
-
 
 # Boolean which define if a cv2 display window will open
 use_window = False
 
+# Create Telegram bot
 bot = telegram.Bot(token=botToken)
 
 # Define VideoStream class to handle streaming of video from webcam in separate processing thread
@@ -234,17 +235,19 @@ try:
                 cv2.circle(frame, (xcenter, ycenter), 5, (0,0,255), thickness=-1)
 
                 # Print info
-                logs = 'Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')'
+                current_time = datetime.now().time()
+
+                logs = str(current_time) +' Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')'
                 logging.debug(logs)
                 print(logs)
                 
                 # Code für Telegrambot
                 if object_name == "cat":
-                    bot.send_photo(chat_id=chat_id, caption= f'Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')', photo=cv2.imencode('.jpg', frame)[1].tostring())
+                    bot.send_photo(chat_id=chat_id, caption= logs, photo=cv2.imencode('.jpg', frame)[1].tostring())
                     time.sleep(10)
 
                 if object_name == "dog":
-                    bot.send_photo(chat_id=chat_id, caption= f'Object ' + str(i) + ': ' + object_name + ' at (' + str(xcenter) + ', ' + str(ycenter) + ')', photo=cv2.imencode('.jpg', frame)[1].tostring())
+                    bot.send_photo(chat_id=chat_id, caption= logs, photo=cv2.imencode('.jpg', frame)[1].tostring())
                     time.sleep(10)
 
         # Draw framerate in corner of frame
@@ -269,6 +272,7 @@ try:
         cv2.destroyAllWindows()
         videostream.stop()
 
+# Contr + C Exception to end code, when no window is defined
 except KeyboardInterrupt:
     cv2.destroyAllWindows()
     videostream.stop()
